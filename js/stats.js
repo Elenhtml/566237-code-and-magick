@@ -6,13 +6,6 @@ var GAP = 50;
 var BAR_WIDTH = 40;
 var BAR_MAX_HEIGHT = 110;
 var BAR_INITIAL_Y = 130;
-var arr = [1, 2, 0];
-
-var randomBlur = function () {
-  var blur = [1, 0.5, 0.2];
-  var a = Math.random() * blur.length;
-  return 'rgba' + '(' + '0' + ', ' + '0' + ', ' + '255' + ', ' + a.toPrecision(3);
-};
 
 var getMaxElement = function (arr) {
   var maxElement = arr[0];
@@ -24,6 +17,11 @@ var getMaxElement = function (arr) {
   }
   
   return maxElement;
+};
+
+var getRandomBlur = function () {
+  var a = Math.random().toFixed(1);
+  return 'rgba' + '(' + '0' + ', ' + '0' + ', ' + '255' + ', ' + a;
 };
 
 window.renderStatistics = function (ctx, NAMES, times) {
@@ -53,25 +51,28 @@ window.renderStatistics = function (ctx, NAMES, times) {
   ctx.stroke();
   ctx.fill();
   
-  ctx.fillStyle = 'black';
-  ctx.font = 'bold 16px PT Mono';
-  ctx.fillText('Ура вы победили!', 230, 40);
-  ctx.font = 'bold 16px PT Mono';
-  ctx.fillText('Список результатов:', 210, 60);
+  var drawText = function (text, x, y, color, font) {
+    var defaultColor = color || '#000000';
+    var defaultFont = font || 'bold 16px PT Mono';
+    ctx.fillStyle = defaultColor;
+    ctx.font = defaultFont;
+    ctx.fillText(text, x, y);
+  };
+  
+  drawText('Ура вы победили!', 230, 40);
+  drawText('Список результатов:', 210, 60);
    
   var maxTime = getMaxElement(times);  
     
   for (var i=0; i < NAMES.length; i++) {
-    ctx.fillStyle = 'black';
-    ctx.fillText(Math.floor(times[i]), CLOUD_X + (BAR_WIDTH + GAP)*i, 110 + (BAR_INITIAL_Y - (BAR_MAX_HEIGHT * times[i]) / maxTime) - 10);
+    drawText(Math.floor(times[i]), CLOUD_X + (BAR_WIDTH + GAP)*i, 100 + (BAR_INITIAL_Y - (BAR_MAX_HEIGHT * times[i]) / maxTime));
         
-    ctx.fillStyle = randomBlur();
+    ctx.fillStyle = getRandomBlur();
     if (NAMES[i] ==='Вы') {
       ctx.fillStyle = 'rgba(255, 0, 0, 1)';  
     }
     ctx.fillRect(CLOUD_X + (BAR_WIDTH + GAP)*i, BAR_INITIAL_Y + (BAR_MAX_HEIGHT - (BAR_MAX_HEIGHT * times[i]) / maxTime), BAR_WIDTH, (BAR_MAX_HEIGHT * times[i]) / maxTime);
     
-    ctx.fillStyle = 'black';
-    ctx.fillText(NAMES[i], CLOUD_X + (BAR_WIDTH + GAP)*i, 260);
+    drawText(NAMES[i], CLOUD_X + (BAR_WIDTH + GAP)*i, 260);
   }
 };
