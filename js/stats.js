@@ -8,23 +8,27 @@ var BAR_MAX_HEIGHT = 150;
 var BAR_INITIAL_Y = 130;
 
 window.renderStatistics = function (ctx, NAMES, times) {
-  ctx.shadowColor = 'rgba(0, 0, 0, 0.7)';
-  ctx.shadowOffsetX = 10;
-  ctx.shadowOffsetY = 10;
+  ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
+  ctx.beginPath();
+  ctx.moveTo(110, 20);
+  ctx.lineTo(530, 20);
+  ctx.lineTo(500, 155);
+  ctx.lineTo(530, 290);
+  ctx.lineTo(110, 290);
+  ctx.lineTo(140, 155);
+  ctx.lineTo(110, 20);
+  ctx.closePath();
+  ctx.stroke();
+  ctx.fill();
   
   ctx.fillStyle = '#ffffff';
   ctx.beginPath();
   ctx.moveTo(100, 10);
   ctx.lineTo(520, 10);
-  ctx.moveTo(520, 10);
   ctx.lineTo(490, 145);
-  ctx.moveTo(490, 145);
   ctx.lineTo(520, 280);
-  ctx.moveTo(520, 280);
   ctx.lineTo(100, 280);
-  ctx.moveTo(100, 280);
   ctx.lineTo(130, 145);
-  ctx.moveTo(130, 145);
   ctx.lineTo(100, 10);
   ctx.closePath();
   ctx.stroke();
