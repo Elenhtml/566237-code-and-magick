@@ -8,6 +8,12 @@ var BAR_MAX_HEIGHT = 110;
 var BAR_INITIAL_Y = 130;
 var arr = [1, 2, 0];
 
+var randomBlur = function () {
+  var blur = [1, 0.5, 0.2];
+  var a = Math.random() * blur.length;
+  return 'rgba' + '(' + '0' + ', ' + '0' + ', ' + '255' + ', ' + a.toPrecision(3);
+};
+
 var getMaxElement = function (arr) {
   var maxElement = arr[0];
   
@@ -58,8 +64,8 @@ window.renderStatistics = function (ctx, NAMES, times) {
   for (var i=0; i < NAMES.length; i++) {
     ctx.fillStyle = 'black';
     ctx.fillText(Math.floor(times[i]), CLOUD_X + (BAR_WIDTH + GAP)*i, 110 + (BAR_INITIAL_Y - (BAR_MAX_HEIGHT * times[i]) / maxTime) - 10);
-    
-    ctx.fillStyle = 'blue';
+        
+    ctx.fillStyle = randomBlur();
     if (NAMES[i] ==='Вы') {
       ctx.fillStyle = 'rgba(255, 0, 0, 1)';  
     }
