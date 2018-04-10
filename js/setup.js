@@ -13,29 +13,19 @@ var chooseRandom = function (arr) {
   return choice;
 };
 
-var massHeroes = [
-  {
-    name: chooseRandom(heroNames) + ' ' + chooseRandom(heroSurNames),
-    coatColor: chooseRandom(coatColors),
-    eyesColor: chooseRandom(eyesColors)
-  },
-  {
-    name: chooseRandom(heroNames) + ' ' + chooseRandom(heroSurNames),
-    coatColor: chooseRandom(coatColors),
-    eyesColor: chooseRandom(eyesColors)
-  },
-  {
-    name: chooseRandom(heroNames) + ' ' + chooseRandom(heroSurNames),
-    coatColor: chooseRandom(coatColors),
-    eyesColor: chooseRandom(eyesColors)
-  },
-  {
-    name: chooseRandom(heroNames) + ' ' + chooseRandom(heroSurNames),
-    coatColor: chooseRandom(coatColors),
-    eyesColor: chooseRandom(eyesColors)
+var massHeroes = [];
+var fillMassHeroes = function () {  
+  for (var i=0; i < 4; i++) {
+    massHeroes[i] = {
+      name: chooseRandom(heroNames) + ' ' + chooseRandom(heroSurNames),
+      coatColor: chooseRandom(coatColors),
+      eyesColor: chooseRandom(eyesColors)
+    }
   }
-];
-
+  return massHeroes;
+};
+fillMassHeroes();
+  
 var similarListElement = document.querySelector('.setup-similar-list');
 var similarWizardTemplate = document.querySelector('#similar-wizard-template').content.querySelector('.setup-similar-item');
 
