@@ -44,3 +44,74 @@ for (var i=0; i < massHeroes.length; i++) {
 }
 similarListElement.appendChild(fragment);
 userShow.querySelector('.setup-similar').classList.remove('hidden');
+
+var ESC_KEYCODE = 27;
+var ENTER_KEYCODE = 13;
+var show = document.querySelector('.setup');
+var block = document.querySelector('.setup-open');
+var close = show.querySelector('.setup-close');
+var userName = show.querySelector('.setup-user-name');
+
+var onPopupEscPress = function(evt) {
+  if (evt.keyCode === ESC_KEYCODE && evt !== userName) {
+    closePopup();
+  }
+};
+
+var openPopup = function () {
+  show.classList.remove('hidden');
+  document.addEventListener('keydown', onPopupEscPress);
+};
+
+var closePopup = function() {
+  show.classList.add('hidden');
+  document.removeEventListener('keydown', onPopupEscPress);
+};
+
+block.addEventListener('click', function () {
+  openPopup;
+});
+
+var iconUser = block.querySelector('.setup-open-icon');
+iconUser.addEventListener('keydown', function(evt) {
+  if (evt.keyCode === ENTER_KEYCODE) {
+    openPopup();
+  }
+});
+
+close.addEventListener('click', function() {
+  closePopup();
+});
+
+close.addEventListener('keydown', function(evt) {
+  if (evt.keyCode === ENTER_KEYCODE) {
+    closePopup();
+  }
+});
+
+var userNameInput = show.querySelector('.setup-user-name');
+
+userNameInput.addEventListener('invalid', function (evt) {
+  if (userNameInput.validity.tooShort) {
+    userNameInput.setCustomValidity('Имя должно состоять минимум из 2-х символов');
+  } else if (userNameInput.validity.tooLong) {
+    userNameInput.setCustomValidity('Имя не должно превышать 25-ти символов');
+  } else if (userNameInput.validity.valueMissing) {
+    userNameInput.setCustomValidity('Обязательное поле');
+  } else {
+    userNameInput.setCustomValidity('');
+  }
+});
+
+var chooseEyesColor = document.querySelector('.setup-wizard .wizard-eyes');
+var inputEyes = document.querySelector('.setup-wizard [eyes-color]');
+chooseEyesColor.addEventListener('click', function () {
+  inputEyes.value = chooseRandom(eyesColors);
+});
+
+var fireballColor = ['#ee4830', '#30a8ee', '#5ce6c0', '#e848d5', '#e6e848'];
+var chooseFireballColor = document.querySelector('.setup-fireball-wrap');
+var inputFireball = document.querySelector('.setup-fireball [fireball-color]');
+chooseFireballColor.addEventListener('click', function () {
+  inputFireball.value = chooseRandom(fireballColor);
+});
